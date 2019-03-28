@@ -1,3 +1,7 @@
+#include <stddef.h>
+#include <stdint.h>
+
+#ifdef BUILD_PY_EXT
 /* A file to test imorting C modules for handling arrays to Python */
 
 #include "Python.h"
@@ -36,6 +40,7 @@ PyInit_modsum()  {
 static inline uint64_t *pyvector_to_Carrayptrs(PyArrayObject *arrayin)  {
 	return (uint64_t *) arrayin->data;  /* pointer to arrayin data as double */
 }
+#endif
 
 int my_modsum(
 	const uint64_t *const cin,
@@ -49,6 +54,7 @@ int my_modsum(
     return (int)(sum % 1000000007);
 }
 
+#ifdef BUILD_PY_EXT
 static PyObject *np_modsum(PyObject *self, PyObject *args)
 {
 	PyArrayObject *vecin;  // The python objects to be extracted from the args
@@ -96,3 +102,4 @@ int  not_doublevector(PyArrayObject *vec)  {
 
 /* #### Matrix Extensions ############################## */
 
+#endif
