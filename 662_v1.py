@@ -27,7 +27,8 @@ from collections import defaultdict
 # from modsum import np_modsum as mods
 from cffi import FFI
 
-import numpy as np
+# import numpy as np
+import _numpypy.multiarray as np
 # import sys
 
 from six import print_
@@ -97,7 +98,7 @@ class BatchStep(object):
                             del tarvec[vv]
 
         def dict2vec(x):
-            ret = np.zeros((ww*hh), dtype=np.uint64)
+            ret = np.zeros((ww*hh), dtype='uint64')
             for vv, val in x.items():
                 ret[vv[0]*ww+vv[1]] = val
             return ret
@@ -111,7 +112,7 @@ class BatchStep(object):
 
     def apply_(self, m, x, y):
         """docstring for apply_"""
-        msrc = m[x:(x+self.ww), y:(y+self.hh)].flatten().astype(np.uint64)
+        msrc = m[x:(x+self.ww), y:(y+self.hh)].flatten().astype('uint64')
         W = self.W
         H = self.H
         for dx, ys in self.op:
@@ -135,7 +136,7 @@ class BatchStep(object):
 
 
 def solve(W, H):
-    m = np.zeros((W+1, H+1), dtype=np.uint32)
+    m = np.zeros((W+1, H+1), dtype='uint32')
     m[0, 0] = 1
     for x in range(W+1):
         print_('x =', x)
@@ -151,7 +152,7 @@ def solve(W, H):
 
 
 def solve_using_batch(W, H, ww, hh):
-    m = np.zeros((W+1, H+1), dtype=np.uint32)
+    m = np.zeros((W+1, H+1), dtype='uint32')
     op = BatchStep(W, H, ww, hh)
     m[0, 0] = 1
     x = 0
