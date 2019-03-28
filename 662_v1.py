@@ -27,8 +27,10 @@ from collections import defaultdict
 # from modsum import np_modsum as mods
 from cffi import FFI
 
-# import numpy as np
-import _numpypy.multiarray as np
+try:
+    import _numpypy.multiarray as np
+except:
+    import numpy as np
 # import sys
 
 from six import print_
@@ -192,9 +194,10 @@ def main():
         assert solve_using_batch(10, 10, 5, 5) == 215846462
         assert solve_using_batch(10, 10, 4, 4) == 215846462
         assert solve_using_batch(100, 100, 20, 20) == solve(100, 100)
-    print_('foo')
-    v = solve_using_batch(10000, 10000, 20, 20)
-    print_('sol =', v)
+    else:    
+        print_('foo')
+        v = solve_using_batch(10000, 10000, 20, 20)
+        print_('sol =', v)
 
 
 if __name__ == "__main__":
