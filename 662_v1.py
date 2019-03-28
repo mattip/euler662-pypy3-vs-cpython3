@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 import math
+import sys
 from collections import defaultdict
 
 # from modsum import np_modsum as mods
@@ -183,12 +184,13 @@ def solve_using_batch(W, H, ww, hh):
 
 
 def main():
-    assert solve(3, 4) == 278
-    assert solve(10, 10) == 215846462
-    assert solve_using_batch(10, 10, 2, 2) == 215846462
-    assert solve_using_batch(10, 10, 5, 5) == 215846462
-    assert solve_using_batch(10, 10, 4, 4) == 215846462
-    assert solve_using_batch(100, 100, 20, 20) == solve(100, 100)
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        assert solve(3, 4) == 278
+        assert solve(10, 10) == 215846462
+        assert solve_using_batch(10, 10, 2, 2) == 215846462
+        assert solve_using_batch(10, 10, 5, 5) == 215846462
+        assert solve_using_batch(10, 10, 4, 4) == 215846462
+        assert solve_using_batch(100, 100, 20, 20) == solve(100, 100)
     print_('foo')
     v = solve_using_batch(10000, 10000, 20, 20)
     print_('sol =', v)
